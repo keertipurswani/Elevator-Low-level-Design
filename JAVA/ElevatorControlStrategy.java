@@ -1,4 +1,4 @@
 public interface ElevatorControlStrategy {
-    void moveElevator(int floorNum);
+    int determineNextStop(int floorNum);
 }
 

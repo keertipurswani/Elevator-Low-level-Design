@@ -14,13 +14,17 @@ public class ElevatorController {
 
     public void moveElevatorToFloor(int floorNum) {
         controlStrategy = new FirstComeFirstServeElevatorControlStrategy();
-        controlStrategy.moveElevator(floorNum);
 
-        if (floorNum > state.getCurrFloor())
+        //We are just determining the nex stop as when requests come
+        //The movement is being taken by hardware. 
+        //Controller sees the next stop and tells hardware move to this floor
+        int nextStop = controlStrategy.determineNextStop(floorNum);
+
+        if (nextStop > state.getCurrFloor())
             state.setCurrDirection(ElevatorDirection.UP);
-        else if (floorNum < state.getCurrFloor())
+        else if (nextStop < state.getCurrFloor())
             state.setCurrDirection(ElevatorDirection.DOWN);
-        if (floorNum != state.getCurrFloor())
+        if (nextStop != state.getCurrFloor())
             state.setCurrStatus(ElevatorStatus.MOVING);
     }
 }

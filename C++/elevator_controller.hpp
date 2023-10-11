@@ -25,13 +25,16 @@ class ElevatorController {
 
         void moveElevatorToFloor(int floorNum) {
             controlStrategy = new FirstComeFirstServeElevatorControlStrategy();
-            controlStrategy->determineNextStop(floorNum);
+            //We are just determining the nex stop as when requests come
+            //The movement is being taken by hardware. 
+            //Controller sees the next stop and tells hardware move to this floor
+            int nextStop = controlStrategy->determineNextStop(floorNum);
 
-            if(floorNum > state->getCurrFloor())
+            if(nextStop > state->getCurrFloor())
                 state->setCurrDirection(ELEVATOR_DIRECTION::UP);
-            else if(floorNum < state->getCurrFloor())
+            else if(nextStop < state->getCurrFloor())
                 state->setCurrDirection(ELEVATOR_DIRECTION::DOWN);
-            if(floorNum != state->getCurrFloor())
+            if(nextStop != state->getCurrFloor())
                 state->setCurrStatus(ELEVATOR_STATUS::MOVING);
         }
 };

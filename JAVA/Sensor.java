@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Sensor {
-    private int floorNum;
+    //private int floorNum;
     private List<Elevator> elevators;
 
     public Sensor() {
